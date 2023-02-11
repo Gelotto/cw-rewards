@@ -1,0 +1,42 @@
+[package]
+name = "cw-contract"
+version = "0.0.1"
+authors = []
+edition = "2018"
+description = "Smart Contract"
+license = "Apache-2.0"
+repository = ""
+homepage = ""
+documentation = ""
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+backtraces = ["cosmwasm-std/backtraces"]
+# use library feature to disable all instantiate/execute/query exports
+library = []
+
+[profile.release]
+rpath = false
+lto = true
+overflow-checks = true
+opt-level = 3
+debug = false
+debug-assertions = false
+codegen-units = 1
+incremental = false
+
+[dependencies]
+cw-utils = { version = "1.0.1" }
+cw2 = { version = "1.0.1" }
+cw20 = { version = "1.0.1" }
+cw-storage-plus = { version = "1.0.1" }
+cosmwasm-schema = { version = "1.2.1" }
+cosmwasm-std = { version = "1.2.1" }
+schemars = "0.8.1"
+serde = { version = "1.0.152", default-features = false, features = ["derive"] }
+thiserror = { version = "1.0.38" }
+
+[dev-dependencies]
+cw-multi-test = { version = "0.16.2" }
