@@ -1,21 +1,13 @@
-use crate::{msg::SelectResponse, state::OWNER};
+use crate::{msg::SelectResponse, state::CREATED_BY};
 use cosmwasm_std::{Deps, StdResult};
+use cw_repository::client::Repository;
 
 pub fn select(
   deps: Deps,
   fields: Option<Vec<String>>,
 ) -> StdResult<SelectResponse> {
-  if let Some(fields) = fields {
-    Ok(SelectResponse {
-      owner: if fields.contains(&"owner".to_owned()) {
-        OWNER.may_load(deps.storage)?
-      } else {
-        None
-      },
-    })
-  } else {
-    Ok(SelectResponse {
-      owner: OWNER.may_load(deps.storage)?,
-    })
-  }
+  let loader = Repository::loader(deps.storage, &fields);
+  Ok(SelectResponse {
+    created_by: loader.get("created_by", &CREATED_BY)?,
+  })
 }

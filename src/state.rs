@@ -1,18 +1,21 @@
-use crate::error::ContractError;
+use crate::models::{ClaimTotals, Grant, GrantKey, RewardMetadata};
 use crate::msg::InstantiateMsg;
+use crate::{error::ContractError, models::RewardKey};
 use cosmwasm_std::{Addr, DepsMut, Env, MessageInfo, StdResult, Storage};
-use cw_storage_plus::Item;
+use cw_storage_plus::{Item, Map};
 
-pub const OWNER: Item<Addr> = Item::new("owner");
+pub const CREATED_BY: Item<Addr> = Item::new("created_by");
+pub const REWARDS: Map<RewardKey, RewardMetadata> = Map::new("rewards");
+pub const GRANTS: Map<GrantKey, Grant> = Map::new("grants");
+pub const CLAIM_TOTALS: Map<(Addr, String), ClaimTotals> = Map::new("claim_totals");
 
-/// Initialize contract state data.
 pub fn initialize(
   deps: DepsMut,
   _env: &Env,
   info: &MessageInfo,
   _msg: &InstantiateMsg,
 ) -> Result<(), ContractError> {
-  OWNER.save(deps.storage, &info.sender)?;
+  CREATED_BY.save(deps.storage, &info.sender)?;
   Ok(())
 }
 
@@ -20,5 +23,5 @@ pub fn is_owner(
   storage: &dyn Storage,
   addr: &Addr,
 ) -> StdResult<bool> {
-  return Ok(OWNER.load(storage)? == *addr);
+  return Ok(CREATED_BY.load(storage)? == *addr);
 }

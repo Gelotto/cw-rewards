@@ -185,12 +185,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "cw-contract"
+name = "cw-acl"
 version = "0.0.1"
 dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
- "cw-multi-test",
  "cw-storage-plus",
  "cw-utils",
  "cw2",
@@ -198,6 +197,19 @@ dependencies = [
  "schemars",
  "serde",
  "thiserror",
+]
+
+[[package]]
+name = "cw-lib"
+version = "0.1.0"
+dependencies = [
+ "cosmwasm-std",
+ "cw-storage-plus",
+ "cw-utils",
+ "cw2",
+ "cw20",
+ "schemars",
+ "serde",
 ]
 
 [[package]]
@@ -214,6 +226,24 @@ dependencies = [
  "itertools",
  "k256",
  "prost",
+ "schemars",
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cw-rewards"
+version = "0.0.1"
+dependencies = [
+ "cosmwasm-schema",
+ "cosmwasm-std",
+ "cw-lib",
+ "cw-multi-test",
+ "cw-storage-plus",
+ "cw-utils",
+ "cw2",
+ "cw20",
+ "cw_repository",
  "schemars",
  "serde",
  "thiserror",
@@ -269,6 +299,22 @@ dependencies = [
  "cw-utils",
  "schemars",
  "serde",
+]
+
+[[package]]
+name = "cw_repository"
+version = "0.0.2"
+dependencies = [
+ "cosmwasm-schema",
+ "cosmwasm-std",
+ "cw-acl",
+ "cw-storage-plus",
+ "cw-utils",
+ "cw2",
+ "cw20",
+ "schemars",
+ "serde",
+ "thiserror",
 ]
 
 [[package]]
